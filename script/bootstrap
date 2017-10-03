@@ -3,8 +3,20 @@
 function main {
   local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
   source "$shome/script/profile"
+  source normalize
 
-  uname -a
+  local url_awsvault_Darwin="https://github.com/99designs/aws-vault/releases/download/v${AWSVAULT_VERSION}/aws-vault-darwin-amd64"
+  local url_awsvault_Linux="https://github.com/99designs/aws-vault/releases/download/v${AWSVAULT_VERSION}/aws-vault-linux-amd64"
+
+  local url_awsvault="url_awsvault_$(uname -s)"
+  local fnm_awsvault="$(basename "${!url_awsvault}")"
+  cache curl "$fnm_awsvault" "${!url_awsvault}"
+
+  mkdir -p "$shome/bin"
+  pushd "$shome/bin"
+  cp "${DATA}/cache/curl/$fnm_awsvault" "$shome/bin/aws-vault"
+  chmod 755 "$shome/bin/aws-vault"
+  popd
 }
 
 main "$@"
