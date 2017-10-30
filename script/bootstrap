@@ -9,7 +9,7 @@ function main {
   local url_awsvault_Linux="https://github.com/99designs/aws-vault/releases/download/v${AWSVAULT_VERSION}/aws-vault-linux-amd64"
 
   local url_awsvault="url_awsvault_$(uname -s)"
-  local fnm_awsvault="$(basename "${!url_awsvault}")"
+  local fnm_awsvault="$(basename "${!url_awsvault}")-${AWSVAULT_VERSION}"
   cache curl "$fnm_awsvault" "${!url_awsvault}"
 
   mkdir -p "$shome/bin"
