@@ -1,6 +1,5 @@
 {
-  "require": [
-  ],
+  "require": [],
   "versions": {
     "awsvault": "99designs/aws-vault"
   }
